@@ -1,0 +1,18 @@
+Package: rvantage
+Title: Client for Finance Historical Data API
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Bobby",
+           family = "Fatemi",
+           role = c("aut", "cre"),
+           email = "bfatemi07@gmail.com")
+Description: R Client for Market Data.
+License: file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Imports: 
+    httr,
+    data.table,
+    stringr,
+    jsonlite
