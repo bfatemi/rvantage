@@ -4,7 +4,10 @@
 \alias{GetStockIndex}
 \title{Index of all Tickers}
 \usage{
-GetStockIndex()
+GetStockIndex(FULL = FALSE)
+}
+\arguments{
+\item{FULL}{boolean defaults to false. If set true, does not filter out based on data issues}
 }
 \description{
 Get an Index of All Tickers listed on the three primary exchanges: NYSE, NASDAQ, and AMEX

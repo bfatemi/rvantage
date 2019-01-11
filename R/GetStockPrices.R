@@ -136,11 +136,3 @@ GetTimeSeries <- function(tickers,
 }
 
 
-
-# RUN EXAMPLES ------------------------------------------------------------
-
-# apikey   <- "3L2VN6WKNEJXITRI"
-# tickers  <- c("MSFT", "ISRG", "BAC")
-# interval <- "15min"
-# outsize  <- "full"
-# GetIntraDay(interval, outsize, symbols, apikey)
