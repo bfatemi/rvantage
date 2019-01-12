@@ -57,33 +57,42 @@ GetTimeSeriesDaily <- function(tickers,
   ll$query$apikey     <- apikey
   ll$query$outputsize <- outsize
   
+  
   resList <- lapply(tickers, function(i, ll){
     ll$query$symbol <- i
-    resp <- GET(build_url(ll))
-    parsed <- jsonlite::fromJSON(content(resp, "text"))
     
-    cnams1 <- stringr::str_replace_all(stringr::str_replace(names(parsed[[1]]), "[1-9]+\\. ", ""), " ", "_")
-    cnams2 <- stringr::str_replace_all(stringr::str_replace(names(parsed[[2]][[1]]), "[1-9]+\\. ", ""), " ", "_")
+    tryCatch({
+      resp <- GET(build_url(ll))
+      parsed <- jsonlite::fromJSON(content(resp, "text"))
+      
+      cnams1 <- stringr::str_replace_all(stringr::str_replace(names(parsed[[1]]), "[1-9]+\\. ", ""), " ", "_")
+      cnams2 <- stringr::str_replace_all(stringr::str_replace(names(parsed[[2]][[1]]), "[1-9]+\\. ", ""), " ", "_")
+      
+      DT1 <- setDT(parsed[[1]])[]
+      setDT(DT1)
+      setnames(DT1, cnams1)
+      
+      DT2 <- rbindlist(lapply(parsed[[2]], as.data.table))
+      setDT(DT2)
+      setnames(DT2, cnams2)
+      
+      resultDT <- cbind(
+        DT1,
+        date = names(parsed[[2]]),
+        DT2
+      )
+      return( resultDT )
+      
+    }, error = function(c){
+      return( NULL )
+    })
     
-    DT1 <- setDT(parsed[[1]])[]
-    setDT(DT1)
-    setnames(DT1, cnams1)
-    
-    DT2 <- rbindlist(lapply(parsed[[2]], as.data.table))
-    setDT(DT2)
-    setnames(DT2, cnams2)
-    
-    resultDT <- cbind(
-      DT1,
-      date = names(parsed[[2]]),
-      DT2
-    )
-    return(resultDT)
-  }, ll)
+  }, ll )
   
   names(resList) <- tickers
-  resList
+  return( resList )
 }
+  
 
 #' @describeIn stock_prices function for weekly or monthly data specified by 
 #' parameter \code{period} which can be one of: "wk" or "month"

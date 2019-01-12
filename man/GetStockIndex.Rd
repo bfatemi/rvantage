@@ -4,7 +4,7 @@
 \alias{GetStockIndex}
 \title{Index of all Tickers}
 \usage{
-GetStockIndex(FULL = FALSE)
+GetStockIndex(full = FALSE)
 }
 \arguments{
 \item{FULL}{boolean defaults to false. If set true, does not filter out based on data issues}

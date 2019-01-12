@@ -8,7 +8,7 @@
 #' @import data.table
 #' 
 #' @export
-GetStockIndex <- function(FULL = FALSE){
+GetStockIndex <- function(full = FALSE){
   ll <- parse_url("https://www.nasdaq.com/screening/companies-by-name.aspx?letter=0&exchange=&render=download")
   
   DT <- rbindlist(lapply(c("nasdaq", "nyse", "amex"), function(i, ll){
@@ -20,27 +20,26 @@ GetStockIndex <- function(FULL = FALSE){
     dt[]
   }, ll))
   
-  if(FULL){
-    for(cnam in names(DT)){
-      set(x = DT, 
-          i = NULL, 
-          j = cnam, value = stringr::str_replace_all(DT[, get(cnam)], 
-                                                     pattern = "n\\/a", 
-                                                     replacement = NA_character_))
-    }
+  if(full)
+    return(DT)
+  
+  for(cnam in names(DT)){
     set(x = DT, 
         i = NULL, 
-        j = "MarketCap", 
-        value = stringr::str_replace_all(DT$MarketCap, 
-                                         pattern = "\\$|[A-Z]", 
-                                         replacement = ""))
-    
-    DT[, LastSale := as.numeric(LastSale) ]
-    DT[, MarketCap := as.numeric(MarketCap) ]
-    DT[, IPOyear := as.integer(IPOyear) ]
-    
-    return( DT[ !is.na(MarketCap) & !is.na(IPOyear) ] )
+        j = cnam, value = stringr::str_replace_all(DT[, get(cnam)], 
+                                                   pattern = "n\\/a", 
+                                                   replacement = NA_character_))
   }
+  set(x = DT, 
+      i = NULL, 
+      j = "MarketCap", 
+      value = stringr::str_replace_all(DT$MarketCap, 
+                                       pattern = "\\$|[A-Z]", 
+                                       replacement = ""))
   
-  return(DT)
+  DT[, LastSale := as.numeric(LastSale) ]
+  DT[, MarketCap := as.numeric(MarketCap) ]
+  DT[, IPOyear := as.integer(IPOyear) ]
+  
+  return( DT[ !is.na(MarketCap) & !is.na(IPOyear) ] )
 }
