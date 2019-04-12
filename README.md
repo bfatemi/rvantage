@@ -1,4 +1,4 @@
-# rvantage [![Travis build status](https://travis-ci.org/bfatemi/rvantage.svg?branch=master)](https://travis-ci.org/bfatemi/rvantage)
+# rvantage [![Travis build status](https://travis-ci.org/bfatemi/rvantage.svg?branch=master)](https://travis-ci.org/bfatemi/rvantage) [![Coverage status](https://codecov.io/gh/bfatemi/rvantage/branch/master/graph/badge.svg)](https://codecov.io/github/bfatemi/rvantage?branch=master)
 
 The goal of rvantage is to ...
 

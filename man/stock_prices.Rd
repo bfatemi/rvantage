@@ -7,20 +7,18 @@
 \alias{GetTimeSeries}
 \title{Stock Price Functions}
 \usage{
-GetIntraDay(tickers, interval = c("1min", "5min", "15min", "30min",
-  "60min"), outsize = c("compact", "full"), apikey)
+GetIntraDay(tickers = "MSFT", interval = c("1min", "5min", "15min",
+  "30min", "60min"), apikey = "demo")
 
-GetTimeSeriesDaily(tickers, adj = FALSE, outsize = c("compact",
-  "full"), apikey)
+GetTimeSeriesDaily(tickers = "MSFT", adj = FALSE, apikey = "demo")
 
-GetTimeSeries(tickers, adj = FALSE, period = c("wk", "month"), apikey)
+GetTimeSeries(tickers = "MSFT", adj = FALSE, period = c("day", "wk",
+  "month"), apikey = "demo")
 }
 \arguments{
 \item{tickers}{a vector of one or more tickers to pull data for}
 
 \item{interval}{applicable to IntraDay Prices only. One of: "1min", "5min", "15min", "30min", "60min"}
-
-\item{outsize}{applicable to IntraDay and Daily Prices only. One of: "compact", "full"}
 
 \item{apikey}{API key from vendor in order to authorize api calls}
 

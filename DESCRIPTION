@@ -17,4 +17,5 @@ Imports:
     stringr,
     jsonlite
 Suggests: 
-    testthat
+    testthat,
+    covr
